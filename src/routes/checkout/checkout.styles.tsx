@@ -24,6 +24,9 @@ export const HeaderBlock = styled.div`
   &:last-child {
     width: 8%;
   }
+  @media screen and (max-width: 800px) {
+    width: 80%;
+  }
 `;
 
 export const Total = styled.span`
