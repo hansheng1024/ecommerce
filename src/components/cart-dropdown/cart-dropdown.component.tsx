@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useCallback } from 'react';
 
 import { selectCartItems } from '../../store/cart/cart.selector';
 import Button from '../button/button.component';
@@ -14,10 +15,12 @@ import {
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
   const navigate = useNavigate();
-
-  const goToCheckoutHandler = () => {
+  // avoid initialize every time
+  // as long as dependency array doesn't change
+  // react will always return the same function (not the output, the actual function)
+  const goToCheckoutHandler = useCallback(() => {
     navigate('/checkout');
-  };
+  }, []);
 
   return (
     <CartDropdownContainer>
@@ -29,6 +32,7 @@ const CartDropdown = () => {
         )}
       </CartItems>
       <Button onClick={goToCheckoutHandler}>CHECKOUT</Button>
+      <Button onClick={goToCheckoutHandler}>Update</Button>
     </CartDropdownContainer>
   );
 };
